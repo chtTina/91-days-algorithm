@@ -4,9 +4,9 @@
  * @Author: tina.cai
  * @Date: 2020-06-04 23:37:13
  * @LastEditors: tina.cai
- * @LastEditTime: 2020-06-05 00:17:58
+ * @LastEditTime: 2020-06-05 00:19:47
 --> 
-# 1381.设计一个支持增量操作的栈
+# 232.用栈实现队列
 
 ## 题目描述
 
