@@ -4,7 +4,7 @@
  * @Author: tina.cai
  * @Date: 2020-06-02 20:38:12
  * @LastEditors: tina.cai
- * @LastEditTime: 2020-06-02 20:49:38
+ * @LastEditTime: 2020-06-04 23:48:13
 --> 
 # 66.加一
 
@@ -54,5 +54,9 @@ var plusOne = function(digits) {
     return (num + '').split('');
 };
 ```
+
+### 参考答案
+
+https://github.com/leetcode-pp/91alg-1/issues/1#issuecomment-636883697
 
 _Originally posted by @chtTina in https://github.com/leetcode-pp/91alg-1/issues/1#issuecomment-636581894_

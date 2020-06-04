@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: tina.cai
+ * @Date: 2020-06-02 15:15:20
+ * @LastEditors: tina.cai
+ * @LastEditTime: 2020-06-04 23:47:07
+--> 
 # 75. 颜色分类
 
 ## 题目描述
@@ -93,5 +101,8 @@ var sortColors = function(nums) {
 };
 ```
 
+### 参考答案
+
+https://github.com/leetcode-pp/91alg-1/issues/15#issuecomment-637651551
 
 _Originally posted by @chtTina in https://github.com/leetcode-pp/91alg-1/issues/15#issuecomment-637457464_
