@@ -4,7 +4,7 @@
  * @Author: tina.cai
  * @Date: 2020-06-04 23:37:13
  * @LastEditors: tina.cai
- * @LastEditTime: 2020-06-05 00:19:47
+ * @LastEditTime: 2020-06-06 23:21:11
 --> 
 # 232.用栈实现队列
 
@@ -100,3 +100,4 @@ MyQueue.prototype.empty = function() {
 
 # 参考回答
 
+https://github.com/leetcode-pp/91alg-1/issues/21
