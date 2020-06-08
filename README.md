@@ -4,7 +4,7 @@
  * @Author: tina.cai
  * @Date: 2020-06-02 15:15:20
  * @LastEditors: tina.cai
- * @LastEditTime: 2020-06-07 12:53:02
+ * @LastEditTime: 2020-06-08 23:55:56
 --> 
 # 目录
 
@@ -27,3 +27,4 @@
 * [【day-05】232.用栈实现队列](./basic/day-05.md)
 * [【day-06】380.常数时间插入、删除和获取随机元素](./basic/day-06.md)
 * [【day-07】206.反转链表](./basic/day-07.md)
+* [【day-08】430.扁平化多级双向链表](./basic/day-08.md)
