@@ -1,96 +1,58 @@
-# 160. 相交链表
+# 1381.设计一个支持增量操作的栈
 
 ## 题目描述
 
 ```
-编写一个程序，找到两个单链表相交的起始节点。
+给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
 
-如下面的两个链表：
+最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
 
-img
-image
+你可以假设除了整数 0 之外，这个整数不会以零开头。
 
-在节点 c1 开始相交。
+示例 1:
 
-示例 1：
+输入: [1,2,3]
+输出: [1,2,4]
+解释: 输入数组表示数字 123。
+示例 2:
 
-img
-image
-
-输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
-输出：Reference of the node with value = 8
-输入解释：相交节点的值为 8 （注意，如果两个链表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,0,1,8,4,5]。在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。
-
-示例 2：
-
-img
-image
-
-输入：intersectVal = 2, listA = [0,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1
-输出：Reference of the node with value = 2
-输入解释：相交节点的值为 2 （注意，如果两个链表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [0,9,1,2,4]，链表 B 为 [3,2,4]。在 A 中，相交节点前有 3 个节点；在 B 中，相交节点前有 1 个节点。
-
-示例 3：
-
-img
-image
-
-输入：intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
-输出：null
-输入解释：从各自的表头开始算起，链表 A 为 [2,6,4]，链表 B 为 [1,5]。由于这两个链表不相交，所以 intersectVal 必须为 0，而 skipA 和 skipB 可以是任意值。
-解释：这两个链表不相交，因此返回 null。
-
-注意：
-
-如果两个链表没有交点，返回 null.
-在返回结果后，两个链表仍须保持原有的结构。
-可假定整个链表结构中没有循环。
-程序尽量满足 O(n) 时间复杂度，且仅用 O(1) 内存。
+输入: [4,3,2,1]
+输出: [4,3,2,2]
+解释: 输入数组表示数字 4321。
 
 来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/intersection-of-two-linked-lists
+链接：https://leetcode-cn.com/problems/plus-one
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 ```
 
 ## 我的回答
 
-https://github.com/leetcode-pp/91alg-1/issues/28#issuecomment-642062668
+https://github.com/leetcode-pp/91alg-1/issues/1#issuecomment-636585991
 
 ### 思路
 
-循环a链表定义一个flag标识，循环b链表如果存在flag为true则返回当前，否则返回null
+数学计算，用 `carry` 来表示进位。如果可以修改原数组的话，那 `carry` 等于 0 的时候就可以停止遍历了，如果需要返回新数组，还需要遍历剩下的元素复制到新数组
 
 ### 代码
 ```js
 /**
- * @param {ListNode} headA
- * @param {ListNode} headB
- * @return {ListNode}
+ * @param {number[]} digits
+ * @return {number[]}
  */
-// var getIntersectionNode = function(headA, headB) {
-//   while(headA){
-//     headA.flag = true;
-//     headA = headA.next
-//   }
-
-//   while(headB){
-//     if(headB.flag) return headB
-//     headB = headB.next
-//   }
-//   return null;
-
-// };
-var getIntersectionNode = function(headA, headB) {
-  while(headA){
-    headA.flag = true;
-    headA = headA.next
-  }
-
-  while(headB){
-    if(headB.flag) return headB
-    headB = headB.next
-  }
-  return null;
+var plusOne = function(digits) {
+    let carry = 1,
+        sum = 0,
+        index = digits.length - 1
+    
+    while (carry > 0 && index > -1) {
+        sum = digits[index] + 1
+        carry = Math.floor(sum / 10)
+        digits[index] = sum % 10
+        index--
+    }
+    carry && digits.unshift(carry)
+    
+    return digits
 };
 ```
 
