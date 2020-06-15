@@ -1,156 +1,108 @@
-# 1381.设计一个支持增量操作的栈
+# 146. LRU缓存机制
 
 ## 题目描述
 
 ```
-给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
+运用你所掌握的数据结构，设计和实现一个 LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。
 
-最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
+获取数据 get(key) - 如果关键字 (key) 存在于缓存中，则获取关键字的值（总是正数），否则返回 -1。
+写入数据 put(key, value) - 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字/值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。
 
-你可以假设除了整数 0 之外，这个整数不会以零开头。
+进阶:
 
-示例 1:
+你是否可以在 O(1) 时间复杂度内完成这两种操作？
 
-输入: [1,2,3]
-输出: [1,2,4]
-解释: 输入数组表示数字 123。
-示例 2:
+示例:
 
-输入: [4,3,2,1]
-输出: [4,3,2,2]
-解释: 输入数组表示数字 4321。
+LRUCache cache = new LRUCache( 2 /* 缓存容量 */ );
 
+cache.put(1, 1);
+cache.put(2, 2);
+cache.get(1);       // 返回  1
+cache.put(3, 3);    // 该操作会使得关键字 2 作废
+cache.get(2);       // 返回 -1 (未找到)
+cache.put(4, 4);    // 该操作会使得关键字 1 作废
+cache.get(1);       // 返回 -1 (未找到)
+cache.get(3);       // 返回  3
+cache.get(4);       // 返回  4
 来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/plus-one
+链接：https://leetcode-cn.com/problems/lru-cache
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 ```
 
 ## 我的回答
 
-https://github.com/leetcode-pp/91alg-1/issues/1#issuecomment-636585991
+https://github.com/leetcode-pp/91alg-1/issues/31#issuecomment-643739816
 
 ### 思路
 
-数学计算，用 `carry` 来表示进位。如果可以修改原数组的话，那 `carry` 等于 0 的时候就可以停止遍历了，如果需要返回新数组，还需要遍历剩下的元素复制到新数组
+思路：
+1. 定义一个数组用来存储对应数据；
+2. 调用get时循环遍历这个数组是否有对应的item.key等于对应的key，如果有则把这个item插入到数组的最前面，否则返回-1；
+3. 调用put的时候循环遍历是否有当前key，如果有则把当前key从数组删除插入到最前，如果没有判断数组列表长度是否大于capacity，如果不大于则直接插入到数组最前面，如果大于等于则把数组最后一个元素删除，并把当前元素插入到数组最前面；
 
 ### 代码
 ```js
 /**
- * @param {number[]} digits
- * @return {number[]}
+ * @param {number} capacity
  */
-var plusOne = function(digits) {
-    let carry = 1,
-        sum = 0,
-        index = digits.length - 1
-    
-    while (carry > 0 && index > -1) {
-        sum = digits[index] + 1
-        carry = Math.floor(sum / 10)
-        digits[index] = sum % 10
-        index--
-    }
-    carry && digits.unshift(carry)
-    
-    return digits
+var LRUCache = function(capacity) {
+  this.data = [];
+  this.capacity = capacity
 };
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function(key) {
+  let res = -1;
+  let index = -1;
+  this.data.forEach((item, i) => {
+    if(item.key === key){
+      res = item.value,
+      index = i
+    }
+  })
+
+  if(index > -1){
+    this.data.splice(index, 1);
+    this.data.unshift({key, value: res})
+  }
+
+  return res;
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function(key, value) {
+  let index = this.data.findIndex(item => {
+    return item.key === key
+  })
+
+  if(index > -1){
+    this.data.splice(index, 1);
+    this.data.unshift({key, value: value})
+  }else{
+    if(this.data.length === this.capacity){
+      this.data.splice(this.data.length - 1, 1);
+      this.data.unshift({key, value})
+    }else{
+      this.data.unshift({key, value})
+    }
+  }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
 ```
 
 # 参考回答
 
-## 前置知识
-
-- 数组的遍历(正向遍历和反向遍历)
-
-## 思路
-
-这道题其实我们可以把它想象成小学生练习加法，只不过现在是固定的“加一”那么我们只需要考虑如何通过遍历来实现这个加法的过程就好了。
-
-加法我们知道要从低位到高位进行运算，那么只需要对数组进行一次反向遍历即可。
-
-伪代码：
-
-```java
-for(int i = n - 1; i > - 1; i --) {
-  内部逻辑
-}
-```
-
-内部逻辑的话，其实有三种情况：
-
-```
-1. 个位上的数字小于9
-    17
-+   1
-= 18
-2. 个位数上等于9，其他位数可以是0-9的任何数，但是首位不等于9
-    199
-+     1
-=  200
-
-    109
-+      1
-=  110
-3. 所有位数都为9
-    99
-+    1
-= 100
-
-      999
-+       1
-=  1000
-```
-
-第一种情况是最简单的，我们只需将数组的最后一位进行+1操作就好了
-
-第二种情况稍微多了一个步骤：我们需要把个位的carry向前进一位并在计算是否有更多的进位
-
-第三种其实和第二种是一样的操作，只是由于我们知道数组的长度是固定的，所以当我们遇到情况三的时候需要扩大数组的长度。我们只需要在结果数组前多加上一位就好了。
-
-```js
-// 首先我们要从数组的最后一位开始我们的计算得出我们新的sum
-sum = arr[arr.length - 1] + 1
-
-// 接下来我们需要判断这个新的sum是否超过9
-sum > 9 ?
-
-// 假如大于 9, 那么我们会更新这一位为 0 并且将carry值更改为1
-carry = 1
-arr[i] = 0
-
-// 假如不大于 9，更新最后一位为sum并直接返回数组
-arr[arr.length - 1] = sum
-return arr
-
-// 接着我们要继续向数组的倒数第二位重复进行我们上一步的操作
-...
-
-// 当我们完成以后，如果数组第一位时的sum大于0，那么我们就要给数组的首位增添一个1
-result = new array with size of arr.length + 1
-result[0] = 1
-result[1] ...... result[result.length - 1]  = 0 // 
-```
-## 代码
-
-```js
-/**
- * @param {number[]} digits
- * @return {number[]}
- */
-var plusOne = function(digits) {
-    var carry = 1 // 我们将初始的 +1 也当做是一个在个位的 carry
-    for(var i = digits.length - 1; i > -1; i-- ) {
-        if(carry) {
-            var sum = carry + digits[i]
-            digits[i] = sum % 10
-            carry = sum > 9 ? 1 : 0 // 每次计算都会更新下一步需要用到的 carry
-        }
-    }
-    if(carry === 1) {
-        digits.unshift(1) // 如果carry最后停留在1，说明有需要额外的一个长度 所以我们就在首位增添一个 1
-    }
-    return digits
-};
-```
-
-_Originally posted by @chtTina in https://github.com/leetcode-pp/91alg-1/issues/1#issuecomment-636883697_

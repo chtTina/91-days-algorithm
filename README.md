@@ -4,7 +4,7 @@
  * @Author: tina.cai
  * @Date: 2020-06-02 15:15:20
  * @LastEditors: tina.cai
- * @LastEditTime: 2020-06-11 17:23:10
+ * @LastEditTime: 2020-06-16 01:01:35
 --> 
 # 目录
 
@@ -31,4 +31,9 @@
 * [【day-09】109.有序链表转换二叉搜索树](./basic/day-09.md)
 * [【day-10】160.相交链表](./basic/day-10.md)
 * [【day-11】146.环形链表 II](./basic/day-11.md)
+* [【day-12】146. LRU缓存机制](./basic/day-12.md)
+* [【day-13】104. 二叉树的最大深度](./basic/day-13.md)
+* [【day-14】100. 相同的树](./basic/day-14.md)
+* [【day-15】129. 求根到叶子节点数字之和](./basic/day-15.md)
+* [【day-16】513.找树左下角的值](./basic/day-16.md)
 
