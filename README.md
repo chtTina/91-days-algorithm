@@ -4,7 +4,7 @@
  * @Author: tina.cai
  * @Date: 2020-06-02 15:15:20
  * @LastEditors: tina.cai
- * @LastEditTime: 2020-06-16 01:01:35
+ * @LastEditTime: 2020-06-19 15:45:16
 --> 
 # 目录
 
@@ -36,4 +36,8 @@
 * [【day-14】100. 相同的树](./basic/day-14.md)
 * [【day-15】129. 求根到叶子节点数字之和](./basic/day-15.md)
 * [【day-16】513.找树左下角的值](./basic/day-16.md)
+* [【day-17】105.从前序与中序遍历序列构造二叉树](./basic/day-17.md)
+* [【day-18】124. 二叉树中的最大路径和](./basic/day-18.md)
+* [【day-19】1.两数之和](./basic/day-19.md)
+
 
